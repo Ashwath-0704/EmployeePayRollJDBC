@@ -21,6 +21,7 @@ public class EmplyPayRollMain {
 	private List<EmployeePayRollDBService> employeePayrollList;
 
 	// UC1 Reading the data from MySql
+	// UC2 Reading the data from MySql after updated
 	public List<EmployeePayRollDBService> readEmployeePayrollData(IOService databaseIo) {
 		if (databaseIo.equals(IOService.DATABASE_IO))
 			this.employeePayrollList = new EmployeePayRollDBService().readData();

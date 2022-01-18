@@ -13,7 +13,7 @@ import java.util.List;
 
 public class emplyPayRollTest {
 
-	@Test // UC2
+	@Test // UC2.
 	public void givenEmployeePayrollInDB_whenRetrived_shouldMatchEmployeeCount() {
 		EmplyPayRollMain emplyPayRollMain = new EmplyPayRollMain();
 		List<EmployeePayRollDBService> employeePayRollJDBCs = emplyPayRollMain
