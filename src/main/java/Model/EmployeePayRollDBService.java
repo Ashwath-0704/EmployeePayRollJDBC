@@ -78,7 +78,9 @@ public class EmployeePayRollDBService {
 			System.out.println(resultSet.getString("Gender")+" -> (SUM->"+resultSet.getInt("Sum_Of_salary")+")-> (AVG-> "+resultSet.getInt("Avg_Of_salary")+")-> (MIN-> "+resultSet.getInt("Min_Of_salary")+")-> (MAX -> "+resultSet.getInt("Max_Of_salary")+") -> (Count->"+resultSet.getInt("Count")+")");
 	}
 
-	// UC1
+	/*
+	   UC1 :- Ability to create a payroll service database and have java program connect to database
+	*/
 	public static void connectToMysql() {
 		try {
 			Class.forName(IOService.DRIVER_IO.file);
@@ -95,7 +97,9 @@ public class EmployeePayRollDBService {
 
 	}
 
-	// UC2
+	/*
+	   UC2 :- Ability for Employee Payroll Service to retrieve the Employee Payroll from the Database
+	*/
 	public static List<EmployeePayRollDBService> readData() {
 		String query = "SELECT * FROM employee_payroll;";
 
@@ -109,12 +113,16 @@ public class EmployeePayRollDBService {
 		return null;
 	}
 
-	// UC3
+	/*
+		UC3 :- Ability to update the salary i.e. the base pay for Employee Terisa to 3000000.00 and sync itwith Database
+	*/
 	public static long updateEmployeePayrollData(String name, Double salary) {
 		return updateEmployeePayrollDataUsingStatemnt(name, salary);
 	}
 
-	// UC3
+	/*
+		UC3 :- Ability to update the salary i.e. the base pay for Employee Terisa to 3000000.00 and sync itwith Database
+	*/
 	private static long updateEmployeePayrollDataUsingStatemnt(String name, Double salary) {
 		String query = String.format("UPDATE employee_payroll SET salary=%.2f WHERE EmployeeName='%s';", salary, name);
 		Connection connection;
@@ -127,8 +135,9 @@ public class EmployeePayRollDBService {
 		}
 		return 0;
 	}
-
-	// UC4
+	/*
+		UC4 :- Ability to update the salary i.e. the base pay for Employee Terisa to 3000000.00 and sync it with Database using JDBC PreparedStatement
+	*/
 	public static long updateEmployeePayrollDataUsingPreparedStatemnt(String name, int salary) {
 
 		String query = "UPDATE employee_payroll SET salary = ? WHERE EmployeeName = ? ";
@@ -165,12 +174,31 @@ public class EmployeePayRollDBService {
 		}
 		return listOfScyedDB;
 	}
-
-	// UC5
+	/*
+		UC5 :- Ability to retrieve all employees who have joined in a particular data range from the payroll service database
+	*/
 	public static List<EmployeePayRollDBService> queryEmployeePayrollDBReturnEmployeeList(LocalDate startDate,LocalDate endDate) throws SQLException {
 		String query = String.format("SELECT * FROM employee_payroll WHERE start_date BETWEEN '%s' AND '%s';",Date.valueOf(startDate), Date.valueOf(endDate));
 		return getEmployeeListData(query);
 	}
+	/*
+		UC6 :- 	Ability to find sum, average, min, max and number of male and female employees
+	*/
+	public static List<EmployeePayRollDBService> queryEmployeePayrollDBReturnOperation() {
+		String query = "SELECT gender As Gender,SUM(salary) AS Sum_Of_salary, AVG(salary) AS Avg_Of_salary,MIN(salary) AS Min_Of_salary,MAX(salary) AS Max_Of_salary,COUNT(salary) AS Count FROM employee_payroll GROUP BY gender;";
+		List<EmployeePayRollDBService> employeePayRollJDBCs = new ArrayList<>();
+		try {
+			getResultSetEmplpoyeeDB(query);
+		} catch (SQLException e) {
+			System.out.println("An error occurred while connecting MySQL databse");
+			e.printStackTrace();
+		}
+		return employeePayRollJDBCs;
+	}
 
 
+	@Override
+	public String toString() {
+		return "[EmployeeName=" + EmployeeName + ", salary=" + salary + "]";
+	}
 }

@@ -6,10 +6,10 @@ import Service.EmplyPayRollMain;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+
 
 public class emplyPayRollTest {
 
@@ -53,4 +53,10 @@ public class emplyPayRollTest {
 		Assert.assertEquals(5, updatedRowsInDB.size());
 	}
 
+	@Test // UC6
+	public void givenEmployeesDB_shouldFindOperation_ReturnOperationData() throws SQLException {
+		EmplyPayRollMain emplyPayRollMain = new EmplyPayRollMain();
+		List<EmployeePayRollDBService> operationDataList = emplyPayRollMain.queryToFindNumberOfOperationSUM_AVG_MIN_MAX_COUNT();
+		Assert.assertEquals(2, operationDataList.size());
+	}
 }
