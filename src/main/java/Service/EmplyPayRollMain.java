@@ -43,4 +43,18 @@ public class EmplyPayRollMain {
 		long result = EmployeePayRollDBService.updateEmployeePayrollDataUsingPreparedStatemnt(name, (int) salary);
 		return result;
 	}
+
+	// Refactored -> UC4
+	public List<EmployeePayRollDBService> queryEmployeePayrollDataUsingPreparedStatemnt(String name) {
+		new EmployeePayRollDBService();
+		this.employeePayrollList = EmployeePayRollDBService.queryEmployeePayrollDataUsingPreparedStatemnt(name);
+		return this.employeePayrollList;
+	}
+
+	// UC5
+	public List<EmployeePayRollDBService> queryEmployeePayrollDBReturnEmployeeList(LocalDate startDate, LocalDate endDate) throws SQLException {
+		this.employeePayrollList = EmployeePayRollDBService.queryEmployeePayrollDBReturnEmployeeList(startDate,endDate);
+		return this.employeePayrollList;
+	}
+
 }

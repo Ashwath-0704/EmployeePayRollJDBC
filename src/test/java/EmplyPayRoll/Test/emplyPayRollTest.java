@@ -35,4 +35,22 @@ public class emplyPayRollTest {
 				50000.00);
 		Assert.assertEquals(1, updatedRowsInDB);
 	}
+
+	@Test // Refactored -> UC4
+	public void givenEmployeeName_shouldMatchSyncWithDBPreparedStatemnt() {
+		EmplyPayRollMain emplyPayRollMain = new EmplyPayRollMain();
+		List<EmployeePayRollDBService> updatedRowsInDB = emplyPayRollMain
+				.queryEmployeePayrollDataUsingPreparedStatemnt("Ashwath_Naidu");
+		Assert.assertEquals(1, updatedRowsInDB.size());
+	}
+
+	@Test // UC5
+	public void givenDateRange_shouldMatchSyncWithDB_ReturnCountOfEmployee() throws SQLException {
+		EmplyPayRollMain emplyPayRollMain = new EmplyPayRollMain();
+		LocalDate startDate =LocalDate.of(2021,8,10);
+		LocalDate endDate =LocalDate.of(2021,10,30);
+		List<EmployeePayRollDBService> updatedRowsInDB = emplyPayRollMain.queryEmployeePayrollDBReturnEmployeeList(startDate,endDate);
+		Assert.assertEquals(5, updatedRowsInDB.size());
+	}
+
 }

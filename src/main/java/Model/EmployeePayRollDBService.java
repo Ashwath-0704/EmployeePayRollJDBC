@@ -128,7 +128,7 @@ public class EmployeePayRollDBService {
 		return 0;
 	}
 
-	// UC4 Ability to update the salary i.e. the base pay for Employee Terisa to 3000000.00 and sync it with Database using JDBC PreparedStatement
+	// UC4
 	public static long updateEmployeePayrollDataUsingPreparedStatemnt(String name, int salary) {
 
 		String query = "UPDATE employee_payroll SET salary = ? WHERE EmployeeName = ? ";
@@ -165,5 +165,12 @@ public class EmployeePayRollDBService {
 		}
 		return listOfScyedDB;
 	}
+
+	// UC5
+	public static List<EmployeePayRollDBService> queryEmployeePayrollDBReturnEmployeeList(LocalDate startDate,LocalDate endDate) throws SQLException {
+		String query = String.format("SELECT * FROM employee_payroll WHERE start_date BETWEEN '%s' AND '%s';",Date.valueOf(startDate), Date.valueOf(endDate));
+		return getEmployeeListData(query);
+	}
+
 
 }
