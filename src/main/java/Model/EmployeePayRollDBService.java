@@ -95,7 +95,7 @@ public class EmployeePayRollDBService {
 
 	}
 
-	// UC2 Ability for Employee Payroll Service to retrieve the EmployeePayroll from the Database
+	// UC2
 	public static List<EmployeePayRollDBService> readData() {
 		String query = "SELECT * FROM employee_payroll;";
 
@@ -109,12 +109,12 @@ public class EmployeePayRollDBService {
 		return null;
 	}
 
-	// UC3 Ability to update the salary i.e. the base pay for Employee Terisa to 3000000.00 and sync it with Database
+	// UC3
 	public static long updateEmployeePayrollData(String name, Double salary) {
 		return updateEmployeePayrollDataUsingStatemnt(name, salary);
 	}
 
-	// UC3 Ability to update the salary i.e. the base pay for Employee Terisa to 3000000.00 and sync it with Database
+	// UC3
 	private static long updateEmployeePayrollDataUsingStatemnt(String name, Double salary) {
 		String query = String.format("UPDATE employee_payroll SET salary=%.2f WHERE EmployeeName='%s';", salary, name);
 		Connection connection;
@@ -126,6 +126,44 @@ public class EmployeePayRollDBService {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+
+	// UC4 Ability to update the salary i.e. the base pay for Employee Terisa to 3000000.00 and sync it with Database using JDBC PreparedStatement
+	public static long updateEmployeePayrollDataUsingPreparedStatemnt(String name, int salary) {
+
+		String query = "UPDATE employee_payroll SET salary = ? WHERE EmployeeName = ? ";
+		Connection connection;
+		try {
+			connection = getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, salary);
+			preparedStatement.setString(2, name);
+			return preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	// Refactored -> UC4
+	public static List<EmployeePayRollDBService> queryEmployeePayrollDataUsingPreparedStatemnt(String name) {
+		List<EmployeePayRollDBService> listOfScyedDB = new ArrayList<>();
+		String query = "SELECT * FROM employee_payroll WHERE EmployeeName = ? ";
+		Connection connection;
+		try {
+			connection = getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, name);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next())
+				listOfScyedDB.add(new EmployeePayRollDBService(resultSet.getInt("Employee_ID"),
+						resultSet.getString("EmployeeName"), resultSet.getString("Department"),
+						resultSet.getDouble("salary")));
+			System.out.println(listOfScyedDB.size());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listOfScyedDB;
 	}
 
 }

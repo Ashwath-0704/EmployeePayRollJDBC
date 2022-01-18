@@ -27,4 +27,12 @@ public class emplyPayRollTest {
 		long updatedRowsInDB = emplyPayRollMain.updateEmployeePayrollData("Terissa", 80000.00);
 		Assert.assertEquals(2, updatedRowsInDB);
 	}
+
+	@Test // UC4
+	public void givenNewSalaryForEmployee_whenUpdated_shouldMatchSyncWithDBPreparedStatemnt() {
+		EmplyPayRollMain emplyPayRollMain = new EmplyPayRollMain();
+		long updatedRowsInDB = emplyPayRollMain.updateEmployeePayrollDataUsingPreparedStatemnt("Ashwath_Naidu",
+				50000.00);
+		Assert.assertEquals(1, updatedRowsInDB);
+	}
 }

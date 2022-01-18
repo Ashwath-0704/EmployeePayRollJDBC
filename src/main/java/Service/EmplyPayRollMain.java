@@ -36,4 +36,11 @@ public class EmplyPayRollMain {
 		if (result == 0)return result;
 		return result;
 	}
+
+	// UC4
+	public long updateEmployeePayrollDataUsingPreparedStatemnt(String name, double salary) {
+		new EmployeePayRollDBService();
+		long result = EmployeePayRollDBService.updateEmployeePayrollDataUsingPreparedStatemnt(name, (int) salary);
+		return result;
+	}
 }
