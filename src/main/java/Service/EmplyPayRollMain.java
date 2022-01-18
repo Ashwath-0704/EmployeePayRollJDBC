@@ -27,5 +27,13 @@ public class EmplyPayRollMain {
 			this.employeePayrollList = new EmployeePayRollDBService().readData();
 		return this.employeePayrollList;
 	}
-	
+
+
+	// UC3
+	public long updateEmployeePayrollData(String name, Double salary) {
+		new EmployeePayRollDBService();
+		long result = EmployeePayRollDBService.updateEmployeePayrollData(name, salary);
+		if (result == 0)return result;
+		return result;
+	}
 }

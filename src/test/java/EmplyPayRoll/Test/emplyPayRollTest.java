@@ -13,11 +13,18 @@ import java.util.List;
 
 public class emplyPayRollTest {
 
-	@Test // UC2.
+	@Test // UC2
 	public void givenEmployeePayrollInDB_whenRetrived_shouldMatchEmployeeCount() {
 		EmplyPayRollMain emplyPayRollMain = new EmplyPayRollMain();
 		List<EmployeePayRollDBService> employeePayRollJDBCs = emplyPayRollMain
 				.readEmployeePayrollData(IOService.DATABASE_IO);
 		Assert.assertEquals(8, employeePayRollJDBCs.size());
+	}
+
+	@Test // UC3
+	public void givenNewSalaryForEmployee_whenUpdated_shouldMatchSyncWithDBStatemnt() {
+		EmplyPayRollMain emplyPayRollMain = new EmplyPayRollMain();
+		long updatedRowsInDB = emplyPayRollMain.updateEmployeePayrollData("Terissa", 80000.00);
+		Assert.assertEquals(2, updatedRowsInDB);
 	}
 }
