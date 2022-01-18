@@ -68,6 +68,4 @@ public class EmplyPayRollMain {
 		this.employeePayrollList = EmployeePayRollDBService.queryEmployeePayrollDBReturnOperation();
 		return this.employeePayrollList;
 	}
-
-
 }

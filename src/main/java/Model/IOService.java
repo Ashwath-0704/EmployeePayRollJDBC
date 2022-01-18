@@ -1,6 +1,7 @@
 package Model;
 
 public enum IOService {
+
 	// Database
 	DATABASE_IO("jdbc:mysql://localhost:3306/payrool_service?allowPublicKeyRetrieval=true&useSSL=false", "root", "Chanti_0704"),
 	DRIVER_IO("com.mysql.cj.jdbc.Driver");
