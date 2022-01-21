@@ -13,12 +13,11 @@ import java.util.List;
 
 public class emplyPayRollTest {
 
-	@Test // UC2
-	public void givenEmployeePayrollInDB_whenRetrived_shouldMatchEmployeeCount() {
+	@Test // UC2 // change the readData in employee_payroll
+	public void givenEmployeePayrollInDB_whenRetrieved_shouldMatchEmployeeCount() {
 		EmplyPayRollMain emplyPayRollMain = new EmplyPayRollMain();
-		List<EmployeePayRollDBService> employeePayRollJDBCs = emplyPayRollMain
-				.readEmployeePayrollData(IOService.DATABASE_IO);
-		Assert.assertEquals(8, employeePayRollJDBCs.size());
+		List<EmployeePayRollDBService> employeePayRollJDBCs = emplyPayRollMain.readEmployeePayrollData(IOService.DATABASE_IO);
+		Assert.assertEquals(4, employeePayRollJDBCs.size());
 	}
 
 	@Test // UC3
@@ -31,7 +30,7 @@ public class emplyPayRollTest {
 	@Test // UC4
 	public void givenNewSalaryForEmployee_whenUpdated_shouldMatchSyncWithDBPreparedStatemnt() {
 		EmplyPayRollMain emplyPayRollMain = new EmplyPayRollMain();
-		long updatedRowsInDB = emplyPayRollMain.updateEmployeePayrollDataUsingPreparedStatemnt("Ashwath_Naidu",
+		long updatedRowsInDB = emplyPayRollMain.updateEmployeePayrollDataUsingPreparedStatement("Ashwath_Naidu",
 				50000.00);
 		Assert.assertEquals(1, updatedRowsInDB);
 	}
@@ -40,7 +39,7 @@ public class emplyPayRollTest {
 	public void givenEmployeeName_shouldMatchSyncWithDBPreparedStatemnt() {
 		EmplyPayRollMain emplyPayRollMain = new EmplyPayRollMain();
 		List<EmployeePayRollDBService> updatedRowsInDB = emplyPayRollMain
-				.queryEmployeePayrollDataUsingPreparedStatemnt("Ashwath_Naidu");
+				.queryEmployeePayrollDataUsingPreparedStatement("Ashwath_Naidu");
 		Assert.assertEquals(1, updatedRowsInDB.size());
 	}
 
@@ -54,9 +53,10 @@ public class emplyPayRollTest {
 	}
 
 	@Test // UC6
-	public void givenEmployeesDB_shouldFindOperation_ReturnOperationData() throws SQLException {
+	public void givenEmployeesDB_shouldFindOperation_ReturnOperationData() {
 		EmplyPayRollMain emplyPayRollMain = new EmplyPayRollMain();
-		List<EmployeePayRollDBService> operationDataList = emplyPayRollMain.queryToFindNumberOfOperationSUM_AVG_MIN_MAX_COUNT();
-		Assert.assertEquals(2, operationDataList.size());
+		int operationDataList = emplyPayRollMain.queryToFindNumberOfOperationSUM_AVG_MIN_MAX_COUNT();
+		Assert.assertEquals(2, operationDataList);
 	}
+
 }

@@ -1,17 +1,8 @@
 package Service;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import Model.EmployeePayRollDBService;
 import Model.IOService;
@@ -42,16 +33,16 @@ public class EmplyPayRollMain {
 	/*
 		UC4 :- Ability to update the salary i.e. the base pay for Employee Terisa to 3000000.00 and sync it with Database using JDBC PreparedStatement
 	*/
-	public long updateEmployeePayrollDataUsingPreparedStatemnt(String name, double salary) {
+	public long updateEmployeePayrollDataUsingPreparedStatement(String name, double salary) {
 		new EmployeePayRollDBService();
-		long result = EmployeePayRollDBService.updateEmployeePayrollDataUsingPreparedStatemnt(name, (int) salary);
+		long result = EmployeePayRollDBService.updateEmployeePayrollDataUsingPreparedStatement(name, (int) salary);
 		return result;
 	}
 
 	// Refactored -> UC4
-	public List<EmployeePayRollDBService> queryEmployeePayrollDataUsingPreparedStatemnt(String name) {
+	public List<EmployeePayRollDBService> queryEmployeePayrollDataUsingPreparedStatement(String name) {
 		new EmployeePayRollDBService();
-		this.employeePayrollList = EmployeePayRollDBService.queryEmployeePayrollDataUsingPreparedStatemnt(name);
+		this.employeePayrollList = EmployeePayRollDBService.queryEmployeePayrollDataUsingPreparedStatement(name);
 		return this.employeePayrollList;
 	}
 	/*
@@ -64,8 +55,8 @@ public class EmplyPayRollMain {
 	/*
 		UC6 :- 	Ability to find sum, average, min, max and number of male and female employees
 	*/
-	public List<EmployeePayRollDBService> queryToFindNumberOfOperationSUM_AVG_MIN_MAX_COUNT() {
-		this.employeePayrollList = EmployeePayRollDBService.queryEmployeePayrollDBReturnOperation();
-		return this.employeePayrollList;
+	public int queryToFindNumberOfOperationSUM_AVG_MIN_MAX_COUNT() {
+		return EmployeePayRollDBService.queryEmployeePayrollDBReturnOperation();
 	}
+
 }
