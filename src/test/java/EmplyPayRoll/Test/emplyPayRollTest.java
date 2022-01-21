@@ -59,4 +59,18 @@ public class emplyPayRollTest {
 		Assert.assertEquals(2, operationDataList);
 	}
 
+	@Test // change the readData in employee_payroll
+	public void givenNewEmployeeData_shouldAddIntoDataBase_ReturnListOfEmployees()  {
+		EmplyPayRollMain emplyPayRollMain = new EmplyPayRollMain();
+		LocalDate startDate = LocalDate.of(2019,10,25);
+		List<EmployeePayRollDBService> employeePayRollDBServiceList = emplyPayRollMain.addNewEmployeePayrollToDatabase("Dhoni_Reddy","85214782","BTM Layout 4th stage","CRM",25000.00,3500.00,2000.00,1000.00,500.00,"Kurnool","India","F",startDate,35000);
+		Assert.assertEquals(4,employeePayRollDBServiceList.size());
+	}
+
+	@Test
+	public void givenNewEmployeeData_shouldInsertIntoPayrollDB_ReturnInsertedRowsCount() throws SQLException {
+		EmplyPayRollMain emplyPayRollMain = new EmplyPayRollMain();
+		List<EmployeePayRollDBService> employeePayRollDBServiceList = emplyPayRollMain.addNewEmployeePayrollToDatabaseAndPayrollTable(5,"Rohan Kumar","M","1985-10-05",50000);
+		Assert.assertEquals(5,employeePayRollDBServiceList.size());
+	}
 }

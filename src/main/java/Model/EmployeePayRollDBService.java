@@ -233,6 +233,38 @@ public class EmployeePayRollDBService {
 		return null;
 	}
 
+	/*
+		UC8 :-	Ability to also add to payroll details when a new Employee is added to the Payroll
+	*/
+	public static List<EmployeePayRollDBService> addNewEmployeePayrollToDatabaseAndPayrollTable(int employee_id, String employeeName, String gender, String date_of_brith, int salary) throws SQLException {
+		final double deduction = salary * 0.2;
+		final double taxablePay = salary - deduction;
+		final double tax = taxablePay * 0.1;
+		final double netPay = salary-tax;
+		final String insertIntoEmployee = String.format("INSERT INTO employee (`Employee_ID`,`EmployeeName`,`gender`,`Date_Of_Brith`,`salary`) VALUES('%s','%s','%s','%s','%s')",employee_id,employeeName,gender,date_of_brith,salary);
+		final String insertIntoEmployee_salary = String.format("INSERT INTO employee_salary (`Salary_ID`,`Employee_ID`,`Basic_Pay`,`Deducation`,`Taxable_Pay`,`Tax`,`Net_Pay`) VALUES ('%s','%s','%s','%s','%s','%s','%s');",5,employee_id,salary,deduction,taxablePay,tax,netPay);
+		Connection connection = null;
+		Statement statement;
+		try {
+			connection = getConnection();
+			connection.setAutoCommit(false); // false
+			statement = connection.createStatement();
+			int employeeDBAffectedCount = statement.executeUpdate(insertIntoEmployee);
+			int employeeSalaryAffectedCount = statement.executeUpdate(insertIntoEmployee_salary);
+			System.out.println("[ employee table added -> "+ employeeDBAffectedCount +" row ]  [ employee_salary table added -> "+ employeeSalaryAffectedCount+" row ]");
+			employeePayRollDBServicesListNEW  = readData();
+			connection.commit(); // commit
+			return employeePayRollDBServicesListNEW;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			connection.rollback();
+		}finally {
+			if (connection!=null) connection.close();
+		}
+		return employeePayRollDBServicesListNEW ;
+	}
+
+
 
 	@Override
 	public String toString() {

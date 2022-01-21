@@ -59,4 +59,13 @@ public class EmplyPayRollMain {
 		return EmployeePayRollDBService.queryEmployeePayrollDBReturnOperation();
 	}
 
+	public List<EmployeePayRollDBService> addNewEmployeePayrollToDatabase(String name, String phoneNumber, String address, String department, double basicPay, double deductions, double taxablePay, double tax, double netPay, String city, String country, String gender, LocalDate startDate, int salary) {
+		this.employeePayrollList = EmployeePayRollDBService.addNewEmployeePayrollToDatabaseService(name,phoneNumber,address,department,basicPay,deductions,taxablePay,tax,netPay,city,country,gender,startDate,salary);
+		return this.employeePayrollList;
+	}
+//	Employee_ID | EmployeeName  | gender | Date_Of_Brith | salary
+	public List<EmployeePayRollDBService> addNewEmployeePayrollToDatabaseAndPayrollTable(int Employee_ID, String EmployeeName, String gender, String Date_Of_Brith, int salary) throws SQLException {
+		this.employeePayrollList = EmployeePayRollDBService.addNewEmployeePayrollToDatabaseAndPayrollTable(Employee_ID,EmployeeName,gender,Date_Of_Brith,salary);
+		return this.employeePayrollList;
+	}
 }
